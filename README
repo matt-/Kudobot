@@ -1,0 +1,15 @@
+JIBJAB Kudobot
+
+Requirements
+  Mysql 5.0+
+  PHP 5
+  PHPGD
+  mycrypt
+  
+
+TO INSTALL 
+  - create database 'kudobot'
+  - modify includes/config.php to your settings
+  - run database.sql on your mysql server
+  
+  START SENDING KUDOS!!
