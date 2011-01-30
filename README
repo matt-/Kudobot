@@ -11,5 +11,6 @@ TO INSTALL
   - create database 'kudobot'
   - modify includes/config.php to your settings
   - run database.sql on your mysql server
+  - set cron to send daily kudos stats (send_daily_stats_cron.php)
   
   START SENDING KUDOS!!
