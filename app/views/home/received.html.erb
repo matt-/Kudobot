@@ -1,0 +1,37 @@
+<% unless @kudos.blank? %>
+	<h1>Kudos Received (<%= @kudos[0]["ttl"] %>)</h1>
+	<div style="width:360px;height:300px;overflow:auto;">
+	<table border="0" cellspacing="3">
+		<tr style='font-weight:bold;'><td>User</td><td>Count</td></tr>
+		<% @kudos.each do |s| %>
+			<tr>
+				<td><%= s.first_name %> <%= s.last_name %></td>
+				<td style='text-align:center'><%= s.kcount %></td>
+		<% end -%>
+	
+	</table>
+	<br/><br/>
+	
+	<% unless @hist.blank? %>
+	<table cellpadding='3'>
+		<tr style='font-size:10px;'>
+			<td><strong>To</strong></td><td><strong>Kudo</strong></td><td><strong>Date</strong></td>
+		</tr>
+		<% @hist.each do |h| %>
+		<tr valign='top' style='font-size:9px;'>
+			<td><%= h.sender_first_name %> <%= h.sender_last_name %></td>
+			<td><%= h.reason %></td>
+			<td><%=  h.created_at %></td>
+		</tr>
+		<% end %>
+	</table>
+	<% end -%>
+	
+	</div>
+	 
+	
+
+<% else %>
+	 <h1>You have not received kudos to anyone yet.</h1>
+		Send kudos <a href='/'>here</a>
+<% end %>

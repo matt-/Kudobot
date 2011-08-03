@@ -1,0 +1,30 @@
+<div align="center">
+	<div style="width:340px;height:350px;overflow:auto;">
+		
+		<% unless @kudo.blank? %>
+<h1>Hi. I am KudoBot.</h1>
+<table cellpadding="4">
+	<tr valign="top">
+		<td>
+			<img src="/images/users/<%= @kudo.from_user.avatar %>" align="absmiddle"/>
+		</td>
+		<td align="left"><span style="font-size:18px;">
+			<%= @kudo.from_user.first_name %> <%= @kudo.from_user.last_name %>  asked that I deliver kudos for:
+			</span>
+
+		</td>
+	</tr>
+</table>
+<br/><br/><center>
+ 
+<%= @kudo.reason.gsub("\n", "<br>") %>
+<br/>
+<br/>
+<h1 style="color:#cc250d;">Nice Work!</h1>
+<br/><a href="/"><img src="/images/send_kudos.png" border="0"/></a>
+</center>
+<%else %>
+Kudobot says, "Your url does not compute"
+<% end %>
+</div>
+</div>

@@ -1,0 +1,60 @@
+ 
+
+	<% if params[:kudo].blank? %>
+			<%= form_for :kudo do |f| %>
+	<h1>KudoBot, please send kudos to:</h1>
+			<%= f.hidden_field :user_id, :id => "selected_user",:value => (@rekudo.blank? ? "" : @rekudo.user_id) %>
+		        <input type="hidden" name="rekudo" value="<%= params[:rekudo] unless params[:rekudo].blank? %>">
+			<table cellpadding="4">
+				<tbody><tr>
+					<td>Enter Name:</td>
+					<td>
+						<input type="text" id="alias" name="alias_parameter" style="width:270px;" value="<%= @rekudo_user_name unless @rekudo_user_name.blank? %>" onclick="this.value='';" autocomplete="off">
+						<div id="alias_choices" class="autocomplete" style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); margin-top:30px;padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px; display: none; "></div>	
+						<script>
+
+							new Ajax.Autocompleter("alias", "alias_choices", "/home/users", {minChars:2,afterUpdateElement:Kudo.append_user});
+
+						</script>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><hr style="color:#cc250d;" noshade="1" size="1"></td>
+				</tr>
+				<tr>
+					<td>
+						Kudos for:
+					</td>
+					<td>
+						<%= f.text_area :reason, {:cols => 30,:rows => 5,:style => "width:270px;",:value => (@rekudo_msg.blank? ? "" : @rekudo_msg) }%>
+				 
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="image" vspace="2" src="images/go.png" onmouseover="this.src='images/go1.png'" onmouseout="this.src='images/go.png'"></td>
+				</tr>
+			</tbody></table>
+			
+			
+			
+			
+			<% end -%>
+			
+			
+	<% else %>
+	
+	<div align="center">
+		<h1>KudoBot has deivered your kudos.</h1>
+		<h1 style='color:#cc250d;'>Long Live KudoBot!</h1>
+		<br/>
+		<a href="/"><img src="images/more.png" border="0"/></a>
+	</div>
+	<% end -%>
+ 
+        <% unless @rekudo.blank? %>
+        <script>
+            $('selected').innerHTML = "<img src='/images/users/<%= @rekudo.user.avatar %>'>";
+			$('selected').style.visibility = "visible";
+           </script>
+        <% end -%>
