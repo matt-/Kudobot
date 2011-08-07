@@ -20,5 +20,5 @@ task :send_daily_stats => :environment do
     end
   end
   
-  Kudo.update_all("sent = 1", "DATEDIFF(DATE_FORMAT(k.created_at,'%Y-%m-%d') , DATE_FORMAT(NOW(),'%Y-%m-%d')) = -1 and sent = 0")
+  Kudo.update_all("sent = 1", "DATEDIFF(DATE_FORMAT(created_at,'%Y-%m-%d') , DATE_FORMAT(NOW(),'%Y-%m-%d')) = -1 and sent = 0")
 end
