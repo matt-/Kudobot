@@ -7,4 +7,11 @@ class KudoMailer < ActionMailer::Base
          :subject => "KudoBot has sent you kudos")
   end
   
+  def daily_stats(kudos,user)
+    @kudos = kudos
+     
+      mail(:to => user.email,
+         :subject => "KudoBot Daily Kudos")
+  
+  end
 end
