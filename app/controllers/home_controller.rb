@@ -29,6 +29,8 @@ class HomeController < ApplicationController
       @kudo.save
       KudoMailer.kudo_email(@kudo).deliver
     end
+    
+    
   end
   
   def receive
@@ -49,48 +51,20 @@ class HomeController < ApplicationController
     render :partial => "users"
   end
   
-  def given
-    sql = "select count(k.id) as kcount,u.first_name,u.last_name,(select count(*) from kudos where from_id = " + current_user.id.to_s +  ") as ttl from kudos k
-                                  inner join users u on u.id = k.user_id
-                                  where k.from_id = " + current_user.id.to_s + " group by u.first_name,u.last_name order by count(k.id) desc"
-    @kudos = Kudo.find_by_sql(sql)
-    
-    @hist = Kudo.find_by_sql("select k.id as kudo_id,DATE_FORMAT(k.created_at,'%m/%d/%Y') as created_at,
-                              u1.first_name as sender_first_name,
-                              u1.last_name as sender_last_name,
-                              u2.first_name as recip_first_name,
-                              u2.last_name as recip_last_name,
-                              u1.avatar as sender_avatar ,
-                              k.reason
-               from kudos k
-                                      inner join users u1 on u1.id = k.from_id
-                                      inner join users u2 on u2.id = k.user_id
-
-                                      where k.from_id = " + current_user.id.to_s + " order by k.id desc")
-    
+  def given    
+    @kudos = Kudo.select('count(kudos.id) as kudo_counts,users.*')
+      .joins(:user)
+      .where(:from_id => current_user.id)
+      .group("users.id")
+      .order("count(kudos.id) desc")
   end
   
   def received
-  
-    sql = "select count(k.id) as kcount,u.first_name,u.last_name,(select count(*) from kudos where user_id = " + current_user.id.to_s + ") as ttl from kudos k
-                                  inner join users u on u.id = k.user_id
-                                  where k.user_id = " + current_user.id.to_s + " group by u.first_name,u.last_name order by count(k.id) desc"
-    @kudos = Kudo.find_by_sql(sql)
-    
-    @hist = Kudo.find_by_sql("select k.id as kudo_id,DATE_FORMAT(k.created_at,'%m/%d/%Y') as created_at,
-                              u1.first_name as sender_first_name,
-                              u1.last_name as sender_last_name,
-                              u2.first_name as recip_first_name,
-                              u2.last_name as recip_last_name,
-                              u1.avatar as sender_avatar ,
-                              k.reason
-               from kudos k
-                                      inner join users u1 on u1.id = k.from_id
-                                      inner join users u2 on u2.id = k.user_id
-
-                                      where k.user_id = " + current_user.id.to_s + " order by k.id desc")
-  
-  
+    @kudos = Kudo.select('count(kudos.id) as kudo_counts,users.*')
+      .joins(:from_user)
+      .where(:user_id => current_user.id)
+      .group("users.id")
+      .order("count(kudos.id) desc")  
   end
   
 end

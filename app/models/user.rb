@@ -1,15 +1,31 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
- # devise :database_authenticatable, :registerable,
-  #       :recoverable, :rememberable, :trackable, :validatable
+ 
+  
+  # add :registerable to allow public sign ups       
+  devise :database_authenticatable,
+          :recoverable, :rememberable, :trackable, :validatable
          
-         devise :database_authenticatable,
-                :recoverable, :rememberable, :trackable, :validatable
-         
-attr_accessor :login
+  attr_accessor :login
+  
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me,:login,:username
+  attr_accessible :email, :password, :password_confirmation, :remember_me,:login,:username,:avatar,:first_name,:last_name,:admin
+  
+  has_many :kudos, :order => "id desc"
+  has_many :given_kudos, :class_name => "Kudo", :foreign_key => "from_id", :order => "id desc"
+  
+  validates_uniqueness_of :username,:email
+  public
+  def resize_photo(path)
+    imagemagick = RAILS_ENV.eql?("production") ? "convert" : "/opt/local/bin/convert" # FOR MACPORT INSTALLS SPECIFY IMAGEMAGIC DIR
+    cmd = imagemagick + " \"" + RAILS_ROOT + "/" + path + "\" -resize 40x54 -format png -quality 100 \"" + RAILS_ROOT + "/public/images/users/" + self.id.to_s + ".png\""
+    system(cmd)
+    if File.exists?(RAILS_ROOT + "/public/images/users/" + self.id.to_s + ".png")
+      self.update_attribute("avatar",self.id.to_s + ".png")
+      File.delete(RAILS_ROOT + "/" + path)
+    end
+  end
   
   protected
   def self.find_for_database_authentication(warden_conditions)
@@ -57,4 +73,7 @@ attr_accessor :login
   def self.find_record(login)
     where(["username = :value OR email = :value", { :value => login }]).first
   end
+  
+
+  
 end

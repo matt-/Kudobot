@@ -1,0 +1,58 @@
+<span style="color:green"><%= flash[:notice] %></span><span style="color:red"><%= flash[:error] %></span>
+<table>
+
+	<tr>
+		<td>First Name:</td>
+		<td><%= f.text_field :first_name %></td>
+	</tr>
+	<tr>
+		<td>Last Name:</td>
+		<td><%= f.text_field :last_name %></td>
+	</tr>
+	
+	<tr>
+		<td>Username:</td>
+		<td><%= f.text_field :username %></td>
+	</tr>
+	<tr>
+		<td>Email</td>
+		<td><%= f.email_field :email %></td>
+	</tr>
+	<% if @user.id.blank? %>
+	<tr>
+		<td>Password</td>
+		<td><%= f.password_field :password %></td>
+	</tr>
+	<tr>
+		<td>Confirm Password</td>
+		<td><%= f.password_field :password_confirmation %></td>
+	</tr>
+	<% else %>
+	<tr>
+		<td>Password</td>
+		<td><a href="#" rel="/admin/users/change_pass?id=<%= @user.id %>" id="change_pass">Change Password</a></td>
+	</tr>
+	<% end %>
+	<tr>
+		<td>Admin:</td>
+		<td><%= f.check_box :admin %></td>
+	</tr>
+	<tr>
+		<td>Photo:</td>
+		<td> 
+			<% unless @user.avatar.blank? %>
+			<%= image_tag("/images/users/" + @user.avatar, :align => "absmiddle") %>
+			<% end -%>
+			<%= f.file_field :avatar %>
+			</td>
+	</tr>
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><%= f.submit "Save"%>
+			<input type="button" value="Cancel" onclick="location.href = '/admin/users'">
+			</td>
+	</tr>
+</table>

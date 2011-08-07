@@ -1,32 +1,32 @@
-<% unless @kudos.blank? %>
-	<h1>Kudos Given (<%= @kudos[0]["ttl"] %>)</h1>
+<% unless current_user.given_kudos.blank? %>
+	<h1>Kudos Given (<%= current_user.given_kudos.count %>)</h1>
 	<div style="width:360px;height:300px;overflow:auto;">
 	<table border="0" cellspacing="3">
 		<tr style='font-weight:bold;'><td>User</td><td>Count</td></tr>
 		<% @kudos.each do |s| %>
 			<tr>
 				<td><%= s.first_name %> <%= s.last_name %></td>
-				<td style='text-align:center'><%= s.kcount %></td>
+				<td style='text-align:center'><%= s.kudo_counts %></td>
 		<% end -%>
 	
 	</table>
 	<br/><br/>
+
 	
-	<% unless @hist.blank? %>
+	<% unless current_user.given_kudos.blank? %>
 	<table cellpadding='3'>
 		<tr style='font-size:10px;'>
 			<td><strong>To</strong></td><td><strong>Kudo</strong></td><td><strong>Date</strong></td>
 		</tr>
-		<% @hist.each do |h| %>
+		<% current_user.given_kudos.each do |h| %>
 		<tr valign='top' style='font-size:9px;'>
-			<td><%= h.recip_first_name %> <%= h.recip_last_name %></td>
+			<td><img src="/images/users/<%= h.user.avatar %>" style="width:30px;"  title="<%= h.user.first_name %> <%= h.user.last_name %>" alt="<%= h.user.first_name %> <%= h.user.last_name %>"></td>
 			<td><%= h.reason %></td>
-			<td><%=  h.created_at %></td>
+			<td><%=  h.created_at.strftime("%m/%d/%Y") %></td>
 		</tr>
 		<% end %>
 	</table>
 	<% end -%>
-	
 	</div>
 	 
 	

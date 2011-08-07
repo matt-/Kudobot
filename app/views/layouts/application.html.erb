@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>JibJab KudoBot</title>
 <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico" />
-<%= stylesheet_link_tag :all %>
+<%= stylesheet_link_tag "main.css" %>
 <%= javascript_include_tag :defaults %>
 <%= javascript_include_tag "kudo.js" %>
 <%= csrf_meta_tag %>
@@ -18,7 +18,7 @@
 		<a href="/">Send Kudos</a> &nbsp; <a href="/home/given">Kudos Given</a> &nbsp; 
 		<a href="/home/received">Kudos Received</a> <!-- &nbsp; <a href="/home/account">My Account</a> -->
 		<% if current_user.admin.eql?(true) %>
-		&nbsp; <a href="/admin" target="_blank">Admin</a>
+		&nbsp; <a href="/admin/users" target="_blank">Admin</a>
 		<% end -%>
 		 &nbsp; <%= link_to "Log Out",destroy_user_session_path,:method => :delete %>	
 		<%- end %>

@@ -1,0 +1,14 @@
+<h4>Edit User</h4>
+<script>
+	document.observe("dom:loaded", function() { 
+		$("change_pass").observe("click", function() {
+		cwin =	window.open(this.rel,'cwin','width=500,height=375,resize=1');
+		cwin.focus();
+			return false;
+		});
+		 });
+</script>
+<br>
+<%= form_for :user,:url => admin_users_path(:id => @user.id),:html => {:multipart => true,:method => :put} do |f| %>
+	<%= render :partial => "form", :locals => {:f => f}%>
+<% end -%>

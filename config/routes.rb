@@ -5,6 +5,20 @@ Kudobot::Application.routes.draw do
   root :to => "home#index"
   match ':controller/:action/:id' 
   match ':controller/:action' 
+  namespace :admin do
+    resource :users do
+      member do
+        get 'change_pass'
+        post 'change_pass'
+      end
+    end
+    
+    resource :kudos do 
+      member do
+        get 'stats'
+      end
+    end
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

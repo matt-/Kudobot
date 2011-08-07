@@ -1,0 +1,24 @@
+<h4>Users</h4>
+<br>
+Results: <%= @kudos.total_count %><br><br>
+<%= paginate @kudos %><br><br>
+<% unless @kudos.blank? %>
+	<table>
+		<tr>
+			<th>From</th>
+			<th>To</th>
+			<th>Reason</th>
+			<th>Created</th>
+			<th></th>
+		</tr>
+		<% @kudos.each do |k| %>
+			<tr>
+				<td><img src="/images/users/<%= k.from_user.avatar %>" title="<%= k.from_user.first_name %> <%= k.from_user.last_name %>"></td>
+				<td><img src="/images/users/<%= k.user.avatar %>" title="<%= k.user.first_name %> <%= k.user.last_name %>"></td>
+				<td><%= k.reason %></td>
+				<td><%= k.created_at.strftime("%m/%d/%Y")%></td>
+				<td><%= link_to "Delete", admin_kudos_path(:id => k.id),:method => :delete , :confirm => "Are you sure?"%></td>
+			</tr>
+		<% end %>
+	</table>
+<% end -%>

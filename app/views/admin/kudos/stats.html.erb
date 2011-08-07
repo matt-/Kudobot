@@ -1,0 +1,44 @@
+<h4>Stats</h4><br><br>
+
+<% unless @given.blank? %>
+<div style="float:left;">
+	<strong>Kudos Given</strong><br>
+	<table>
+		<tr>
+			<th>User</th>
+			<th>Count</th>
+			<th>Month</th>
+		</tr>
+
+	<% @given.each do |k| %>
+		<tr>
+			<td><%= k.username %></td>
+			<td><%= k.kudo_counts %></td>
+			<td><%= k.mt %>/<%= k.yr %></td>
+		</tr>
+	<% end -%>
+	</table>
+</div>
+<% end -%>
+
+
+<% unless @recv.blank? %>
+<div style="float:left;margin-left:60px;">
+		<strong>Kudos Received</strong><br>
+	<table>
+		<tr>
+			<th>User</th>
+			<th>Count</th>
+			<th>Month</th>
+		</tr>
+
+	<% @recv.each do |k| %>
+		<tr>
+			<td><%= k.username %></td>
+			<td><%= k.kudo_counts %></td>
+			<td><%= k.mt %>/<%= k.yr %></td>
+		</tr>
+	<% end -%>
+	</table>
+</div>
+<% end -%>	
