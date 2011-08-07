@@ -1,6 +1,6 @@
 class Admin::KudosController < ApplicationController
    layout "admin"
-   
+   before_filter :authenticate_user!,:is_admin
    def show
      
     @kudos = Kudo.joins(:from_user,:user).order("id desc").page(params[:page]).per(50)

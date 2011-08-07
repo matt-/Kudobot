@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   layout "admin", :except => :change_pass
-  
+  before_filter :authenticate_user!,:is_admin
   def show
     @users = User.page(params[:page]).per(25)
   end
