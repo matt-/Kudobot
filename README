@@ -1,3 +1,6 @@
+KudoBot is a system we use at JibJab that lets employees to recognize the great work their colleagues do everyday.  Did someone figure out a tough technical challenge?  Send 'em Kudos.  Did your designer make something you thought would have to look like shit look beautiful?  Send 'em Kudos.  The sender visits a website to send the kudos and the recipient receives an email letting them know they have received Kudos.  Every morning, an email digest of the prior day's Kudo activity is sent to the entire company.  It's a great way to move from one-on-one recognition to company wide recognition and it's an awesome way for employees to be kept abreast of the work being done across the whole company.  KudoBot has been awesome for JibJab and we look forward to seeing what kind of improvements can be made by open-sourcing it!
+
+
 == Welcome to Rails
 
 Rails is a web-application framework that includes everything needed to create
