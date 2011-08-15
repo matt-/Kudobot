@@ -40,13 +40,7 @@ module Kudobot
     config.filter_parameters += [:password]
     
     
-    config.action_mailer.delivery_method = :sendmail
-        config.action_mailer.sendmail_settings = {
-            :location       => '/usr/sbin/sendmail',
-            :arguments      => '-i -t',
-            :openssl_verify_mode  => 'none'
-            
-        }
+
     
     
   end

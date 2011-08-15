@@ -5,8 +5,13 @@ class KudoMailer < ActionMailer::Base
     @kudo = kudo
     user = User.find(u)
     unless user.blank?
-      mail(:to => user.email,
-         :subject => "KudoBot has sent you kudos")
+      if Rails.env == "development"
+        mail(:to => user.email,
+          :subject => "KudoBot has sent you kudos")
+      else
+        mail(:to => current_user.email,
+          :subject => "KudoBot has sent you kudos [MEANT FOR " + u.email + "]")
+      end
     end
   end
   
