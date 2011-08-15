@@ -9,8 +9,8 @@ class KudoMailer < ActionMailer::Base
         mail(:to => user.email,
           :subject => "KudoBot has sent you kudos")
       else
-        mail(:to => current_user.email,
-          :subject => "KudoBot has sent you kudos [MEANT FOR " + u.email + "]")
+        mail(:to => "mike@michaeljaffe.com",
+          :subject => "DEVELOPMENT MODE: KudoBot has sent you kudos [MEANT FOR " + user.email + "]")
       end
     end
   end
