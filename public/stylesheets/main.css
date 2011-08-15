@@ -83,6 +83,8 @@ textarea
 {
 	color:#cc250d;
 }
+
+
 #selected {visibility:hidden;background-repeat: no-repeat; width:91px;height:75px;float:right;margin-top:194px;margin-right:165px;clear:both;}
 #selected img {text-align:center;padding-top:10px;padding-left:25px;}
 .auto_complete {position:absolute;width:250px;background-color:#ffffff;border:1px solid #888;margin:0px;padding:0px;}
@@ -92,5 +94,15 @@ li.contact {list-style-type:none;display:block;margin:0;padding:2px; font-weight
 li.contact div.image {float:left;width:32px;height:32px;margin-right:8px;}
 li.contact div.name {font-weight:bold;font-size:16px;line-height:1.2em;}
 li.contact div.email {font-size:10px;color:#888;}
+
+
+#user_list {width:270px;height:auto;background-color:#ebebeb;max-height:70px;overflow-y:auto}
+#user_list a {margin-top:4px;float:left;width:115px;border:1px solid #ccc;font-size:10px;padding:2px;background-color:#fff;display: block;margin-left:4px;}
+#user_list a:hover {
+	background-color:#dbfbff;
+}
+#user_list a img {height:25px;vertical-align:middle;}
+#user_list a .x {float:right;padding-right:2px; cursor:pointer}
+#user_list .sep {margin-top:4px;float:left;width:6px;}
 
  

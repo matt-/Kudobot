@@ -1,5 +1,5 @@
 class Admin::KudosController < ApplicationController
-   layout "admin"
+   layout "admin",:except => :mailer_test
    before_filter :authenticate_user!,:is_admin
    def show
      
@@ -21,5 +21,12 @@ class Admin::KudosController < ApplicationController
          .joins(:user)
          .group("users.id,users.username,MONTH(kudos.created_at),YEAR(kudos.created_at)")
          .order("count(kudos.id) desc")
+   end
+   
+   def mailer_test
+     @kudos = Kudo.all(:select => "kudos.*,DATE_FORMAT(kudos.created_at,'%M %D, %Y') as dDate",
+     :conditions => "DATEDIFF(DATE_FORMAT(kudos.created_at,'%Y-%m-%d') , DATE_FORMAT(NOW(),'%Y-%m-%d')) = 0")
+     render :template => "kudo_mailer/daily_stats"
+
    end
 end

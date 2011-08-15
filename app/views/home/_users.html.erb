@@ -1,7 +1,8 @@
 <% unless @users.blank? %>
 <ul class='contacts'>
 	<% @users.each do |u| %>
-		<li class='contact' id='<%= u.id %>'><img src='images/users/<%= u.avatar %>' align='absmiddle' style='padding-right:4px;' id='u_image_<%= u.id %>'/><%= u.first_name %> <%= u.last_name %></li>
+		<li class='contact' id='<%= u.id %>'><img src='images/users/<%= u.avatar %>' align='absmiddle' style='padding-right:4px;' id='u_image_<%= u.id %>'/><input type="hidden" id="user_name_<%= u.id %>" value="<%= u.first_name %> <%= u.last_name %>"><%= u.first_name %> <%= u.last_name %></li>
 	<% end -%>
 </ul>
+ 
 <% end -%>

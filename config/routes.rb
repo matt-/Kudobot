@@ -16,6 +16,7 @@ Kudobot::Application.routes.draw do
     resource :kudos do 
       member do
         get 'stats'
+        get 'mailer_test'
       end
     end
   end

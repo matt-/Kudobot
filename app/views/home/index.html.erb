@@ -4,16 +4,37 @@
 			<%= form_for :kudo do |f| %>
 	<h1>KudoBot, please send kudos to:</h1>
 			<%= f.hidden_field :user_id, :id => "selected_user",:value => (@rekudo.blank? ? "" : @rekudo.user_id) %>
+				 
 		        <input type="hidden" name="rekudo" value="<%= params[:rekudo] unless params[:rekudo].blank? %>">
-			<table cellpadding="4">
+ 
+				<table cellpadding="4">
 				<tbody><tr>
-					<td>Enter Name:</td>
-					<td>
+					<td valign="top">Enter Name(s):</td>
+					<td valign="top">
 						<input type="text" id="alias" name="alias_parameter" style="width:270px;" value="<%= @rekudo_user_name unless @rekudo_user_name.blank? %>" onclick="this.value='';" autocomplete="off">
-						<div id="alias_choices" class="autocomplete" style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); margin-top:30px;padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px; display: none; "></div>	
+						
+						<div id="user_list">
+						 						
+						</div><div id="alias_choices" class="autocomplete" style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); margin-top:30px;padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px; display: none; "></div>	
 						<script>
 
-							new Ajax.Autocompleter("alias", "alias_choices", "/home/users", {minChars:2,afterUpdateElement:Kudo.append_user});
+							new Ajax.Autocompleter("alias", "alias_choices", "/home/users", 
+									{
+										minChars:2,
+										afterUpdateElement:Kudo.append_user,
+										
+									}
+								);
+								
+								<% unless @rekudo_users.blank? %>
+								document.observe("dom:loaded", function() { 
+									<% @rekudo_users.each do |u| %>
+										Kudo.rekudo(<%= u.id %>,'<%= u.first_name %> <%= u.last_name %>');
+									<% end %>
+									Kudo.render_user_list();
+									
+							     });
+								<% end %>
 
 						</script>
 					</td>
@@ -26,15 +47,15 @@
 						Kudos for:
 					</td>
 					<td>
-						<%= f.text_area :reason, {:cols => 30,:rows => 5,:style => "width:270px;",:value => (@rekudo_msg.blank? ? "" : @rekudo_msg) }%>
+						<%= f.text_area :reason, {:cols => 30,:rows => 5,:style => "font-size:12px;width:270px;",:value => (@rekudo_msg.blank? ? "" : @rekudo_msg) }%>
 				 
 					</td>
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="image" vspace="2" src="images/go.png" onmouseover="this.src='images/go1.png'" onmouseout="this.src='images/go.png'"></td>
+					<td><input type="image" vspace="2" src="images/go.png" onmouseover="this.src='images/go1.png'" onmouseout="this.src='images/go.png'" onclick="return Kudo.validate();"></td>
 				</tr>
-			</tbody></table>
+			</tbody></table> 
 			
 			
 			

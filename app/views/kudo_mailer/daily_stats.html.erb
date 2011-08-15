@@ -7,17 +7,26 @@
 <h2>KudoBot daily kudos for <%= @kudos[0]["dDate"] %></h2>
 <a href='http://www.kudobots.com/' style='color:#cc250d;'><strong>Domo Arigato KudoBot!!</strong></a>
 <br/><br>
-<table border='0' cellspacing='0' cellpadding='3' style='border:1px dotted black;background-color:#ffffff;'>
+<table border='0' cellspacing='2' cellpadding='3' style='background-color:#ffffff;'>
   <% @kudos.each do |k| %>
  
-                     <tr valign='middle'>
-                   <td style='width:50px;'><img src='http://www.kudobots.com/images/users/<%= k.from_avatar %>'/></td>
-                   <td style='width:100px;'>Sent kudos to</td>
-                     <td style='width:50px;'><img src='http://www.kudobots.com/images/users/<%= k.avatar %>'/></td>
-                      <td style='width:360px;'><%= k.reason.gsub("\n", "<br>") %></td>
-                    	<td style='width:40px;'><a href='http://www.kudobots.com?rekudo=<%= k.thread_id %>' target='_blank'><img src='http://www.kudobots.com/images/re_kudo.gif' border='0' alt='Re-Kudo' title='Re-Kudo'/></a></td>
+                     <tr>
+                   <td style='width:50px;' valign='top'><img src='http://localhost:3000/images/users/<%= k.from_user.avatar %>'/></td>
+                      <td style='width:460px;'>
+						<div style="margin-bottom:8px">Sent Kudos To:</div>
+						<% k.users.each do |u| %>
+						<img src='http://localhost:3000/images/users/<%= u.avatar %>' style="width:34px;"/>
+						<% end -%>
+						<div style="margin-left:20px;margin-top:8px;">
+						"<em><%= k.reason.gsub("\n", "<br>") %></em>"
+						</div>
+						</td>
+                    	<td style='width:40px;'><a href='http://www.kudobots.com?rekudo=<%= k.thread_id %>' target='_blank'>
+	<img src='http://www.kudobots.com/images/re_kudo.gif' border='0' alt='Re-Kudo' title='Re-Kudo'/></a></td>
 				</tr>
-
+				<tr>
+					<td colspan="3"><hr noshade size="1"></td>
+				</tr>
             
  <% end %>
 </table>

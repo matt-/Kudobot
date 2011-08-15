@@ -12,11 +12,15 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,:login,:username,:avatar,:first_name,:last_name,:admin
   
-  has_many :kudos, :order => "id desc"
+  has_many :kudos, :through => "UserKudo",:order => "id desc"
   has_many :given_kudos, :class_name => "Kudo", :foreign_key => "from_id", :order => "id desc"
   
   validates_uniqueness_of :username,:email
   public
+  def name
+    self.first_name + " " + self.last_name
+  end
+  
   def resize_photo(path)
     imagemagick = RAILS_ENV.eql?("production") ? "convert" : "/opt/local/bin/convert" # FOR MACPORT INSTALLS SPECIFY IMAGEMAGIC DIR
     cmd = imagemagick + " \"" + RAILS_ROOT + "/" + path + "\" -resize 40x54 -format png -quality 100 \"" + RAILS_ROOT + "/public/images/users/" + self.id.to_s + ".png\""
