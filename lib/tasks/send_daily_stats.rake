@@ -7,7 +7,7 @@ task :send_daily_stats => :environment do
   unless @kudos.blank?
     users = User.all
     users.each do |u|
-      KudoMailer.daily_stats(@kudos,users).deliver
+      KudoMailer.daily_stats(@kudos,u).deliver
     end
   end
   
