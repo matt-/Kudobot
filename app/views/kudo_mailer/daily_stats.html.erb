@@ -11,11 +11,11 @@
   <% @kudos.each do |k| %>
  
                      <tr>
-                   <td style='width:50px;' valign='top'><img src='http://localhost:3000/images/users/<%= k.from_user.avatar %>'/></td>
+                   <td style='width:50px;' valign='top'><img src='http://www.kudobots.com/images/users/<%= k.from_user.avatar %>'/></td>
                       <td style='width:460px;'>
 						<div style="margin-bottom:8px">Sent Kudos To:</div>
 						<% k.users.each do |u| %>
-						<img src='http://localhost:3000/images/users/<%= u.avatar %>' style="width:34px;"/>
+						<img src='http://www.kudobots.com/images/users/<%= u.avatar %>' style="width:34px;"/>
 						<% end -%>
 						<div style="margin-left:20px;margin-top:8px;">
 						"<em><%= k.reason.gsub("\n", "<br>") %></em>"

@@ -1,9 +1,10 @@
-<% unless current_user.kudos.blank? %>
-	<h1>Kudos Received (<%= current_user.kudos.count %>)</h1>
+<% unless @received.blank? %>
+	<h1>Kudos Received (<%= @kudos.total_count %>)</h1>
 	<div style="width:360px;height:300px;overflow:auto;">
 	<table border="0" cellspacing="3">
 		<tr style='font-weight:bold;'><td>User</td><td>Count</td></tr>
-		<% @kudos.each do |s| %>
+		<% @received.each do |s| %>
+ 
 			<tr>
 				<td><%= s.first_name %> <%= s.last_name %></td>
 				<td style='text-align:center'><%= s.kudo_counts %></td>
@@ -13,14 +14,18 @@
 	<br/><br/>
 
 	
-	<% unless current_user.kudos.blank? %>
+	<% unless @kudos.blank? %>
+<%= paginate @kudos %>
 	<table cellpadding='3'>
 		<tr style='font-size:10px;'>
-			<td><strong>From</strong></td><td><strong>Kudo</strong></td><td><strong>Date</strong></td>
+			<td><strong>To</strong></td><td><strong>Kudo</strong></td><td><strong>Date</strong></td>
 		</tr>
-		<% current_user.kudos.each do |h| %>
+		<% @kudos.each do |h| %>
+		 
 		<tr valign='top' style='font-size:9px;'>
-			<td><img src="/images/users/<%= h.from_user.avatar %>" style="width:30px;"  title="<%= h.from_user.first_name %> <%= h.from_user.last_name %>" alt="<%= h.from_user.first_name %> <%= h.from_user.last_name %>"></td>
+			<td><img src="/images/users/<%= h.from_user.avatar %>" style="width:30px;" 
+				 title="<%= h.from_user.first_name %> <%= h.from_user.last_name %>" 
+				alt="<%= h.from_user.first_name %> <%= h.from_user.last_name %>"></td>
 			<td><%= h.reason %></td>
 			<td><%=  h.created_at.strftime("%m/%d/%Y") %></td>
 		</tr>
@@ -32,6 +37,6 @@
 	
 
 <% else %>
-	 <h1>You have not received kudos yet.</h1>
+	 <h1>You have not received kudos from anyone yet.</h1>
 		Send kudos <a href='/'>here</a>
 <% end %>

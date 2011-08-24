@@ -1,9 +1,10 @@
-<% unless current_user.given_kudos.blank? %>
-	<h1>Kudos Given (<%= current_user.given_kudos.count %>)</h1>
+<% unless @given.blank? %>
+	<h1>Kudos Given (<%= @kudos.total_count %>)</h1>
 	<div style="width:360px;height:300px;overflow:auto;">
 	<table border="0" cellspacing="3">
 		<tr style='font-weight:bold;'><td>User</td><td>Count</td></tr>
-		<% @kudos.each do |s| %>
+		<% @given.each do |s| %>
+ 
 			<tr>
 				<td><%= s.first_name %> <%= s.last_name %></td>
 				<td style='text-align:center'><%= s.kudo_counts %></td>
@@ -13,12 +14,14 @@
 	<br/><br/>
 
 	
-	<% unless current_user.given_kudos.blank? %>
+	<% unless @kudos.blank? %>
+<%= paginate @kudos %>
 	<table cellpadding='3'>
 		<tr style='font-size:10px;'>
 			<td><strong>To</strong></td><td><strong>Kudo</strong></td><td><strong>Date</strong></td>
 		</tr>
-		<% current_user.given_kudos.each do |h| %>
+		<% @kudos.each do |h| %>
+		 
 		<tr valign='top' style='font-size:9px;'>
 			<td><img src="/images/users/<%= h.user.avatar %>" style="width:30px;"  title="<%= h.user.first_name %> <%= h.user.last_name %>" alt="<%= h.user.first_name %> <%= h.user.last_name %>"></td>
 			<td><%= h.reason %></td>

@@ -17,10 +17,12 @@ class Admin::KudosController < ApplicationController
        .joins(:from_user)
        .group("users.id,users.username,MONTH(kudos.created_at),YEAR(kudos.created_at)")
        .order("count(kudos.id) desc")
-     @recv = Kudo.select("count(kudos.id) as kudo_counts,users.id,users.username,MONTH(kudos.created_at) as mt,YEAR(kudos.created_at) as yr")
-         .joins(:user)
-         .group("users.id,users.username,MONTH(kudos.created_at),YEAR(kudos.created_at)")
-         .order("count(kudos.id) desc")
+         
+    @recv =  UserKudo.select('count(kudos.id) as kudo_counts,users.id,users.username,MONTH(kudos.created_at) as mt,YEAR(kudos.created_at) as yr')
+           .joins(:kudo)
+           .joins(:user)
+           .group("users.username,MONTH(kudos.created_at),YEAR(kudos.created_at)")
+           .order("count(kudos.id) desc")
    end
    
    def mailer_test

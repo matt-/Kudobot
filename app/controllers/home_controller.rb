@@ -72,19 +72,33 @@ class HomeController < ApplicationController
   end
   
   def given    
-    @kudos = Kudo.select('count(kudos.id) as kudo_counts,users.*')
+ 
+    @given = UserKudo.select('count(distinct kudo_id) as kudo_counts,users.*')
+      .joins(:kudo)
       .joins(:user)
-      .where(:from_id => current_user.id)
+      .where("kudos.from_id" => current_user.id)
       .group("users.id")
-      .order("count(kudos.id) desc")
+      .order("count(distinct kudo_id) desc")
+    @kudos = Kudo.where("kudos.from_id" => current_user.id)
+              .joins(:from_user)
+              .joins(:user)
+              .order("kudos.id desc").page(params[:page])
   end
   
   def received
-    @kudos = Kudo.select('count(kudos.id) as kudo_counts,users.*')
-      .joins(:from_user)
-      .where(:user_id => current_user.id)
-      .group("users.id")
-      .order("count(kudos.id) desc")  
+    @received = UserKudo.select('count(user_kudos.id) as kudo_counts,users.*')
+      .joins(:kudo)
+      .joins("INNER JOIN users on users.id = kudos.from_id")
+      .where("user_kudos.user_id" => current_user.id.to_s)
+      .group("kudos.from_id")
+      
+      @kudos = Kudo
+        .joins(:user_kudos)
+        .joins("INNER JOIN users on users.id = kudos.from_id")
+        .where("user_kudos.user_id" => current_user.id)
+        .order("kudos.id desc").page(params[:page])
+
+ 
   end
   
 

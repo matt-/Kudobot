@@ -66,8 +66,8 @@ Kudo = {
 			
 			txt = document.createElement('span')
 			name = Kudo.selected_users[i].name
-			if(name.length > 14) {
-				name = Kudo.selected_users[i].name.substr(0,14) + "...";
+			if(name.length > 12) {
+				name = Kudo.selected_users[i].name.substr(0,11) + "...";
 			}
 			txt.innerHTML = " " + name
 			a.appendChild(txt);
