@@ -11,13 +11,13 @@
   <% @kudos.each do |k| %>
  
                      <tr>
-                   <td style='width:50px;' valign='top'><img src='http://www.kudobots.com/images/users/<%= k.from_user.avatar %>'/></td>
-                      <td style='width:460px;'>
-						<div style="margin-bottom:8px">Sent Kudos To:</div>
+                   <td style='width:50px;' valign="top"><img src='http://www.kudobots.com/images/users/<%= k.from_user.avatar %>'/></td>
+					<td valign="top"><img src="http://www.kudobots.com/images/karrow.png" border="0" vspace="8"></td>
+                      <td style='width:460px;' valign="top">
 						<% k.users.each do |u| %>
-						<img src='http://www.kudobots.com/images/users/<%= u.avatar %>' style="width:34px;"/>
+						<img src='http://www.kudobots.com/images/users/<%= u.avatar %>'/>
 						<% end -%>
-						<div style="margin-left:20px;margin-top:8px;">
+						<div style="margin-top:8px;">
 						"<em><%= k.reason.gsub("\n", "<br>") %></em>"
 						</div>
 						</td>
@@ -25,7 +25,7 @@
 	<img src='http://www.kudobots.com/images/re_kudo.gif' border='0' alt='Re-Kudo' title='Re-Kudo'/></a></td>
 				</tr>
 				<tr>
-					<td colspan="3"><hr noshade size="1"></td>
+					<td colspan="4"><hr noshade size="1"></td>
 				</tr>
             
  <% end %>
