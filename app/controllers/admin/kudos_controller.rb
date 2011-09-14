@@ -27,7 +27,7 @@ class Admin::KudosController < ApplicationController
    
    def mailer_test
      @kudos = Kudo.all(:select => "kudos.*,DATE_FORMAT(kudos.created_at,'%M %D, %Y') as dDate",
-     :conditions => "DATEDIFF(DATE_FORMAT(kudos.created_at,'%Y-%m-%d') , DATE_FORMAT(NOW(),'%Y-%m-%d')) = -1")
+     :conditions => "DATEDIFF(DATE_FORMAT(kudos.created_at,'%Y-%m-%d') , DATE_FORMAT(NOW(),'%Y-%m-%d')) = -1", :order => "ifnull(kudos.rekudo,0)")
      render :template => "kudo_mailer/daily_stats"
 
    end

@@ -1,7 +1,7 @@
 task :send_daily_stats => :environment do
 
   @kudos = Kudo.all(:select => "kudos.*,DATE_FORMAT(kudos.created_at,'%M %D, %Y') as dDate", 
-  :conditions => "DATEDIFF(DATE_FORMAT(created_at,'%Y-%m-%d') , DATE_FORMAT(NOW(),'%Y-%m-%d')) = -1 and sent = 0")
+  :conditions => "DATEDIFF(DATE_FORMAT(created_at,'%Y-%m-%d') , DATE_FORMAT(NOW(),'%Y-%m-%d')) = -1 and sent = 0", :order => "ifnull(kudos.rekudo,0)")
 
 
   unless @kudos.blank?
